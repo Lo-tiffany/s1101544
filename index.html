@@ -1,0 +1,323 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Web Fundamentals Workshop</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script src="https://www.youtube.com/iframe_api"></script>
+		<!-- css部分 -->
+		<style>
+			#bg { 
+				width: 650px;
+				height: 600px;
+				margin: 0 auto;
+				background: url(turntable-bg.png) no-repeat;
+				position: relative;
+			}
+	
+			img[src^="pointer"] {
+    			width: 130px;
+    			position: absolute;
+    			z-index: 10;
+    			top: 200px;
+    			left: 275px;
+			}
+	
+			img[src^="turntable"] {
+				position: absolute;
+				z-index: 5;
+				top: 68px;
+				left: 122px;
+				transition: all 4s;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper-->
+			<div id="wrapper">
+
+				<!-- Nav -->
+					<nav id="nav">
+						<a href="#" class="icon solid fa-home"><span>主頁</span></a>
+						<a href="#work" class="icon solid fa-folder"><span>作品小區</span></a>
+						<a href="#contact" class="icon solid fa-envelope"><span>Contact</span></a>
+						<a href="https://www.instagram.com/lotiffany920526" class="icon brands fa-instagram"><span>Instagram</span></a>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Me -->
+							<article id="home" class="panel intro">
+								<header>
+									<h1 style="font-family: 微軟正黑體;">羅立庭</h1>
+									<p style="font-family: 微軟正黑體;">1101544  元智資工1B</p>
+								</header>
+								<a href="#work" class="jumplink pic">
+									<span class="arrow icon solid fa-chevron-right"><span>See my work</span></span>
+									<img src="images/me.jpg" alt="" />
+								</a>
+							</article>
+
+						<!-- Work -->
+							<article id="work" class="panel">
+								<header>
+									<h2 style="font-family: 微軟正黑體;font-weight: bolder;">- 作品小區 -</h2>
+								</header>
+								<p style="font-family: 微軟正黑體;">
+									網站程式設計實務課程上半學期的成果展示，其中包含「今天晚餐吃什麼?、社團課程時間表
+									、心理測驗、RPG小遊戲、Youtube播放器」。經由課堂的上課內容外加自己的課後補充，所完成的一系列成品。
+								</p>
+								<section>
+									<div class="row">
+										<div class="col-4 col-6-medium col-12-small">
+											<a href="#menu" class="image fit"><img src="images/pic01.jpg" alt=""></a>
+										</div>
+										<div class="col-4 col-6-medium col-12-small">
+											<a href="#class" class="image fit"><img src="images/pic02.jpg" alt=""></a>
+										</div>
+										<div class="col-4 col-6-medium col-12-small">
+											<a href="#mental" class="image fit"><img src="images/pic03.jpg" alt=""></a>
+										</div>
+										<div class="col-4 col-6-medium col-12-small">
+											<a href="#game" class="image fit"><img src="images/pic04.jpg" alt=""></a>
+										</div>
+										<div class="col-4 col-6-medium col-12-small">
+											<a href="#youtube" class="image fit"><img src="images/pic05.jpg" alt=""></a>
+										</div>
+										<div class="col-4 col-6-medium col-12-small">
+											<a href="#playvideo" class="image fit"><img src="images/pic05.jpg" alt=""></a>
+										</div>
+									</div>
+								</section>
+							</article>
+
+                        <!--Menu-->
+						<article id="menu" class="panel">
+							<header>
+								<h2 style="font-family: monospace;">今天晚上吃什麼 ?</h2><br>
+								<h3 id="output" style="font-family: 微軟正黑體;">想不到晚餐吃什麼嗎 ， 那就交給我決定吧 !</h3>
+							</header>
+							<!-- HTML結構部分 --> 
+								<div id="bg"><img id="turnBtn" src="pointer.png" alt="pointer"><img id="turntable" src="turntable.png" alt="turntable"></div>  
+								<!-- js部分 -->
+								<script>
+									var oPointer = document.getElementById("turnBtn");
+									var oTurntable = document.getElementById("turntable");
+									var offOn = true; //是否沒有在抽獎
+									var ang = 45; //總共8個，每個區域約45度
+									var num = 0; //轉圈結束後停留的度數
+									oPointer.onclick = function () {
+										if (offOn) {
+											offOn = !offOn;
+											rotating();
+										}
+									}
+									//旋轉
+									var turn = 0;
+									var times = 1;
+									function rotating() {
+										// var timer = null;
+										var rdm; //隨機度數
+										// clearInterval(timer);
+										// timer = setInterval(function () {
+										// 	if (Math.floor(rdm / 360) < 4) { 
+										// 		 }//Math.floor() 函式會回傳小於等於所給數字的最大整數。Math.random()隨機產生出0~1之間的小數
+											
+										// 	else {
+										
+										do{
+											rdm = parseInt(Math.random() * 16);
+										}while(rdm % 2 != times % 2)
+										console.log(rdm);
+										rdm *= 22.5; 
+										turn += 1800 + rdm;
+										oTurntable.style.transform = "rotate(" + turn + "deg)";
+										if(times==1){times++;}
+										else{times+=2;}
+										setTimeout(function () {
+											offOn = !offOn;
+											num = turn % 360;
+											if (num <= ang * 1) { alert("拉麵"); console.log("rdm=" + rdm + "，num=" + num + "，" + "拉麵"); }
+											else if (num <= ang * 2) { alert("咖哩飯"); console.log("rdm=" + rdm + "，num=" + num + "，" + "咖哩飯"); }
+											else if (num <= ang * 3) { alert("水餃"); console.log("rdm=" + rdm + "，num=" + num + "，" + "水餃"); }
+											else if (num <= ang * 4) { alert("飯糰"); console.log("rdm=" + rdm + "，num=" + num + "，" + "飯糰"); }
+											else if (num <= ang * 5) { alert("便當"); console.log("rdm=" + rdm + "，num=" + num + "，" + "便當"); }
+											else if (num <= ang * 6) { alert("義大利麵"); console.log("rdm=" + rdm + "，num=" + num + "，" + "義大利麵"); }
+											else if (num <= ang * 7) { alert("漢堡"); console.log("rdm=" + rdm + "，num=" + num + "，" + "漢堡"); }
+											else if (num <= ang * 8) { alert("減肥"); console.log("rdm=" + rdm + "，num=" + num + "，" + "減肥"); }
+										}, 4010);//指定等候的時間
+									}
+								</script>
+						</article>
+
+						<!-- Class -->
+						<article id="class" class="panel">
+							<h2 style="font-family: monospace;">社團課程時間表</h2><br>
+							<h3 style="font-family: 微軟正黑體;">交給我 ， 讓你在活動流程的排版變得更便利 !</h3><br>
+							   <course>
+							    <link rel="stylesheet" href="classstyle.css">
+								<table id="courseTable"></table>
+								 
+								<script src="classtopic.js"></script>
+								
+							   </course>
+							   <br><br>
+						</article>
+
+						<!-- Mental -->
+						<article id="mental" class="panel">
+							<h2 style="font-family: monospace;">你今年的愛情是什麼滋味 ?</h2><br>
+							<mentalbd>
+								<div>
+								<h2 id="question"></h2>
+								<div id="options"></div>
+								</div>
+								<link rel="stylesheet" href="mentalstyle.css">
+								<div style="margin: 0 auto;">
+								<input id="startButton" type="button" value="開始作答">
+								<div>
+								 
+								<script src="mentaldata.js"></script>
+								
+							</mentalbd>
+						</article>
+
+						<!-- Game -->
+						<article id="game" class="panel">
+							<h1 style="font-family: monospace;">RPG - 小恐龍遊戲</h1><br>
+							<h3 style="font-family: 微軟正黑體;">請帶領小恐龍一起逃離這充滿仙人掌的沙漠吧 !</h3><br>						
+							<game>
+								<link rel="stylesheet" href="gamestyles.css">
+  								<script src="script.js" type="module"></script>
+								<div class="world" data-world>
+									<div class="score" data-score>0</div>
+									<div class="start-screen" data-start-screen>Press Any Key To Start</div>
+									<img src="imgs/ground.png" class="ground" data-ground>
+									<img src="imgs/ground.png" class="ground" data-ground>
+									<img src="imgs/dino-stationary.png" class="dino" data-dino>
+								</div>
+							</game>
+							   <br><br>
+						</article>
+
+						<!-- Youtube -->
+						<article id="youtube" class="panel">
+							<script src="playList.js"></script>
+							<script src="playmain.js"></script>
+							<h1 style="font-family: monospace;">Youtube</h1><br>
+							<h3 style="font-family: 微軟正黑體;">依據自己的喜好 ， 調整自己喜歡的聆聽方式!</h3><br>						
+							<yt>
+								<link rel="stylesheet" href="ytstyle.css">
+								<div style="margin: 0 auto;">
+								<div class="embed-responsive embed-responsive-16by9" id="player">
+	
+								</div>
+								</div>
+								<div class="row align-items-center pt-4">
+								  <div class="col-12">
+									<div class="btn-group">
+									  <button id="play" type="button">播放</button>
+									  <button id="pause" type="button">暫停</button>
+									  <button id="stop" type="button">停止</button>
+									  <button id="back" type="button">後退10秒</button>
+									  <button id="forward" type="button">前進10秒</button>
+									</div>
+								  </div>								  
+								</div><br>
+								
+								<div class="row pt-4">
+									<div class="col-10">
+										<div class="form-group row align-items-center mb-0">
+										  <div class="col-2 text-right">
+											<label class="mb-0" for="volume">速度</label>
+										  </div>
+										  <div class="col-10">
+											<input class="form-control-range" id="rate" type="range" min="0.25" max="2" step="0.25"/>
+										  </div>
+										</div>
+									</div>
+								  <div class="col-10">
+									<div class="form-group row align-items-center mb-0">
+									  <div class="col-2 text-right">
+										<label  class="mb-0" for="volume">音量</label>
+									  </div>
+									  <div class="col-10">
+										<input class="form-control-range" id="volume" type="range" min="0" max="100" step="1"/>
+									  </div>
+									</div>
+								  </div>
+								  <div class="col-2">
+									<div class="custom-control custom-switch">
+									  <input class="custom-control-input" id="toggleMute" type="checkbox" checked="checked"/>
+									  <label class="custom-control-label" for="toggleMute">靜音</label>
+									</div>
+								  </div>
+								</div>
+							</yt>
+							   <br><br>
+						</article>
+
+						<!-- YT -->
+						<!-- <article id="playvideo" class="panel">
+							<h1 style="font-family: monospace;">YouTube 心情點唱機</h1><br>
+							<h3 style="font-family: 微軟正黑體;">播放</h3><br>
+							<link rel="stylesheet" href="playstyle.css">						
+							<bodyy>
+								<div style="text-align: center;">
+								<h4></h4>
+								<div id="players"></div>
+								<br>
+								<input id="playButton" type="button" value="下一首">							
+								
+								</div>
+							</bodyy>
+							<br><br>
+						</article>  -->
+
+
+						<!-- Contact -->
+							<article id="contact" class="panel">
+								<header>
+									<h2>Contact Me</h2>
+								</header>
+								<form action="#" method="post">
+									<div>
+										<div class="row">
+											<div class="col-6 col-12-medium">
+												<input type="text" name="name" placeholder="Name" />
+											</div>
+											<div class="col-6 col-12-medium">
+												<input type="text" name="email" placeholder="Email" />
+											</div>
+											<div class="col-12">
+												<input type="text" name="subject" placeholder="Subject" />
+											</div>
+											<div class="col-12">
+												<textarea name="message" placeholder="Message" rows="6"></textarea>
+											</div>
+											<div class="col-12">
+												<input type="submit" value="Send Message" />
+											</div>
+										</div>
+									</div>
+								</form>
+							</article>
+
+					</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="classmain.js"></script>
+			<script src="mentalmain.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
