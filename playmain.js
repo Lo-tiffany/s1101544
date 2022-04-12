@@ -39,7 +39,6 @@ function onYouTubeIframeAPIReady(){
           e.target.mute().playVideo();
         });
         pause.addEventListener('click', () => e.target.pauseVideo());
-        stop.addEventListener('click', () => e.target.stopVideo());
     
         // 後退、前進10秒
         back.addEventListener('click', () => {
@@ -67,6 +66,26 @@ function onYouTubeIframeAPIReady(){
         //- 有聲的情況下無法自動播放，因此不執行 playVideo
         mute.addEventListener('change', () => mute.checked ? e.target.mute().playVideo() : e.target.unMute());
       }
+
+function playy() {
+  if(currentPlay<playList.length-1){
+    currentPlay++;
+    players.loadVideoById({
+    videoId:playList[currentPlay],
+    startSeconds:playTime[currentPlay][0],
+    endSeconds:playTime[currentPlay][1],
+    suggestedQuality:"large"
+    });
+    }else{
+    currentPlay=0;
+    players.cueVideoById({
+    videoId:playList[currentPlay],
+    startSeconds:playTime[currentPlay][0],
+    endSeconds:playTime[currentPlay][1],
+    suggestedQuality:"large"
+    });
+    }
+}
 
 //Player State Change
 function onPlayerStateChange(event){
