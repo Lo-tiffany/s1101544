@@ -16,6 +16,7 @@ input[type=button]{
     border-radius:10px;
     cursor:pointer;
     font-weight:bold;
+    border:2px #F5B7B1 solid;
 }
 input[type=button]:hover{
     color:#F5B7B1;
